@@ -4,7 +4,7 @@ int main()
 {
     using namespace flute;
 
-    using ufixed_t = ufixed<4, 4>;
+    using ufixed_t = ufixed<4, 32>;
     using raw_t = ufixed_t::value_type;
 
     constexpr double d_a = 3.21;
@@ -19,7 +19,7 @@ int main()
     constexpr auto sum = a + b;
     constexpr auto sum_double = sum.to<double>();
 
-    constexpr auto eps = epsilon<ufixed_t>::value;
+    constexpr auto eps = epsilon<ufixed_t, double>::value;
 
     constexpr auto lb = sum_double - 2 * eps;
     constexpr auto ub = sum_double + 2 * eps;

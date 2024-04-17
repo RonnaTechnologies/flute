@@ -49,7 +49,7 @@ namespace flute
         }
 
         template <typename Dest_t>
-        requires std::is_floating_point_v<Dest_t>
+        requires (std::is_floating_point_v<Dest_t> && sizeof(Dest_t) >= sizeof(T))
         constexpr Dest_t to() const noexcept
         {
             return (static_cast<Dest_t>(raw / static_cast<Dest_t>(T{1} << F)));
@@ -86,13 +86,14 @@ namespace flute
         T raw{};
     };
 
-    template <typename>
+    template <typename, typename>
     struct epsilon;
 
-    template <std::size_t I, std::size_t F>
-    struct epsilon<ufixed<I, F>>
+    template <std::size_t I, std::size_t F, typename Dest_t>
+    requires (std::is_floating_point_v<Dest_t> && sizeof(Dest_t) <= sizeof(std::uintmax_t))
+    struct epsilon<ufixed<I, F>, Dest_t>
     {
-        static constexpr double value = 1. / (std::uintmax_t{1} << F);
+        static constexpr Dest_t value = 1. / (std::uintmax_t{1} << F);
     };
 
 } // namespace flute
