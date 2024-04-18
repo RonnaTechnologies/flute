@@ -17,7 +17,7 @@ int main()
 
 
     constexpr auto sum = a + b;
-    constexpr auto sum_double = sum.to<double>();
+    constexpr auto sum_double = sum.as<double>();
 
     constexpr auto eps = epsilon<ufixed_t, double>::value;
 

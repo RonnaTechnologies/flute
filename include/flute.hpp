@@ -48,11 +48,26 @@ namespace flute
 
         }
 
+        template <typename Integer_t>
+        requires std::is_integral_v<Integer_t>
+        constexpr ufixed(Integer_t i)
+        : raw{static_cast<T>(i << F)}
+        {
+
+        }
+
         template <typename Dest_t>
         requires (std::is_floating_point_v<Dest_t> && sizeof(Dest_t) >= sizeof(T))
-        constexpr Dest_t to() const noexcept
+        constexpr Dest_t as() const noexcept
         {
             return (static_cast<Dest_t>(raw / static_cast<Dest_t>(T{1} << F)));
+        }
+
+        template <typename Dest_t>
+        requires std::is_integral_v<Dest_t>
+        constexpr Dest_t as() const noexcept
+        {
+            return raw >> F;
         }
 
         template <typename Raw_t>
