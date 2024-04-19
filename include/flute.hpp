@@ -81,7 +81,7 @@ namespace flute
 
         constexpr auto data() const noexcept { return raw; }
 
-        friend constexpr auto operator + (const ufixed<I, F>& a, const ufixed<I, F>& b)
+        friend constexpr auto operator + (ufixed<I, F> a, ufixed<I, F> b)
         {
             ufixed<I, F> uf;
             uf.raw = a.raw + b.data();
@@ -89,13 +89,23 @@ namespace flute
             return uf;
         }
 
-        friend constexpr auto operator - (const ufixed<I, F>& a, const ufixed<I, F>& b)
+        friend constexpr auto operator - (ufixed<I, F> a, ufixed<I, F> b)
         {
             ufixed<I, F> uf;
             uf.raw = a.raw - b.data();
 
             return uf;
         }
+
+        template <typename Int>
+        requires std::is_integral_v<Int>
+        friend constexpr auto operator * (Int a, ufixed<I, F> b)
+        {
+            using overflow_t = detail::unsigned_raw<F + I + std::numeric_limits<Int>::digits>::type;
+
+            return ufixed<I, F>::from_raw(static_cast<overflow_t>(a * b.data()));
+        }
+
     private:
 
         T raw{};
