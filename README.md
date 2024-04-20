@@ -10,7 +10,7 @@ A C++20 fixed-point single header library.
 
 ### Prerequisites
 
-Since this is a header only library, all you need is a C++23 compiler.
+Since this is a header only library, all you need is a C++20 compiler. This library has only been tested with (ARM)GCC.
 
 ### Installing
 
@@ -20,7 +20,7 @@ All you need is to include `flute.hpp` in your C++ files.
 
 ## Building the project
 
-It's a header only library, include `flute.hpp` and build your source files as usual.
+It's a header-only library, include `flute.hpp` and build your source files as usual.
 
 ## Documentation
 
