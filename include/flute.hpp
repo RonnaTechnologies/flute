@@ -42,7 +42,7 @@ namespace flute
 
         template <typename FloatingPoint_t>
         requires std::is_floating_point_v<FloatingPoint_t>
-        constexpr ufixed(FloatingPoint_t f) 
+        constexpr explicit ufixed(FloatingPoint_t f) 
         : raw{static_cast<T>(f * static_cast<FloatingPoint_t>(T{1} << F))}
         {
 
@@ -50,7 +50,7 @@ namespace flute
 
         template <typename Integer_t>
         requires std::is_integral_v<Integer_t>
-        constexpr ufixed(Integer_t i)
+        constexpr explicit ufixed(Integer_t i)
         : raw{static_cast<T>(i << F)}
         {
 
