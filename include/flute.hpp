@@ -7,42 +7,77 @@
 
 namespace flute
 {
+
+    struct not_found{};
+    struct signed_t{};
+    struct unsigned_t{};
+
     namespace detail
     {
-        template <std::size_t>
-        struct unsigned_raw { using type = void; };
 
-        template <std::size_t n_bits> requires (n_bits <= 8)
-        struct unsigned_raw<n_bits> { using type = std::uint8_t; };
+        template <typename...>
+        struct type_list{};
 
-        template <std::size_t n_bits> requires (n_bits > 8 && n_bits <= 16)
-        struct unsigned_raw<n_bits> { using type = std::uint16_t; };
+        using int_types = type_list<std::int8_t,  std::uint8_t, 
+                                    std::int16_t, std::uint16_t, 
+                                    std::int32_t, std::uint32_t, 
+                                    std::int64_t, std::uint64_t>;
 
-        template <std::size_t n_bits> requires (n_bits > 16 && n_bits <= 32)
-        struct unsigned_raw<n_bits> { using type = std::uint32_t; };
+        template <auto Predicate, typename NotFound, typename... Ts>
+        struct find_if_impl;
 
-        template <std::size_t n_bits> requires (n_bits > 32 && n_bits <= 64
-                                                && std::numeric_limits<std::uintmax_t>::digits > 32)
-        struct unsigned_raw<n_bits> { using type = std::uint64_t; };
+        template <auto Predicate, typename NotFound>
+        struct find_if_impl<Predicate, NotFound>
+        {
+            using type = NotFound;
+        };
 
-        template <std::size_t n_bits> requires (n_bits > 64)
-        struct unsigned_raw<n_bits> { using type = void; };
+        template <auto Predicate, typename NotFound, typename T, typename... Ts>
+        struct find_if_impl<Predicate, NotFound, T, Ts...>
+        {
+            using type =  std::conditional_t<Predicate(T{}), 
+                                            T, 
+                                            typename find_if_impl<Predicate, NotFound, Ts...>::type>;
+        };
+
+
+        template <auto Predicate, typename NotFound, typename List, typename... Ts>
+        struct find_if;
+
+        template <template <typename...> typename List, auto Predicate, typename NotFound, typename... Ts>
+        struct find_if<Predicate, NotFound, List<Ts...>>
+        {
+            using type = find_if_impl<Predicate, NotFound, Ts...>::type;
+        };
+
+
+        template <std::size_t n_bits, typename sign_t>
+        requires (std::is_same_v<sign_t, signed_t> || std::is_same_v<sign_t, unsigned_t>)
+        struct from_bits
+        {
+            using type = find_if<[]<typename T>(T) 
+                                 { 
+                                   return std::numeric_limits<T>::digits >= n_bits
+                                          && std::numeric_limits<T>::is_signed == std::is_same_v<sign_t, signed_t>; 
+                                 }, not_found, int_types>::type;
+        };
     }
 
-    template <std::size_t I, std::size_t F>
-    class ufixed
+    template <std::size_t I, std::size_t F, typename sign_t>
+    requires (std::is_same_v<sign_t, unsigned_t> || std::is_same_v<sign_t, signed_t>)
+    class fixed
     {
-        using T = detail::unsigned_raw<I + F>::type;
+        using T = detail::from_bits<I + F, sign_t>::type;
 
     public:
 
         using value_type = T;
 
-        constexpr ufixed() = default;
+        constexpr fixed() = default;
 
         template <typename FloatingPoint_t>
         requires std::is_floating_point_v<FloatingPoint_t>
-        constexpr explicit ufixed(FloatingPoint_t f) 
+        constexpr explicit fixed(FloatingPoint_t f) 
         : raw{static_cast<T>(f * static_cast<FloatingPoint_t>(T{1} << F))}
         {
 
@@ -50,7 +85,7 @@ namespace flute
 
         template <typename Integer_t>
         requires std::is_integral_v<Integer_t>
-        constexpr explicit ufixed(Integer_t i)
+        constexpr explicit fixed(Integer_t i)
         : raw{static_cast<T>(i << F)}
         {
 
@@ -74,24 +109,24 @@ namespace flute
         requires std::is_convertible_v<Raw_t, T>
         static constexpr auto from_raw(Raw_t&& r)
         {
-            ufixed<I, F> f;
+            fixed<I, F, sign_t> f;
             f.raw = r;
             return f;
         }
 
         constexpr auto data() const noexcept { return raw; }
 
-        friend constexpr auto operator + (ufixed<I, F> a, ufixed<I, F> b)
+        friend constexpr auto operator + (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b)
         {
-            ufixed<I, F> uf;
+            fixed<I, F, sign_t> uf;
             uf.raw = a.raw + b.data();
 
             return uf;
         }
 
-        friend constexpr auto operator - (ufixed<I, F> a, ufixed<I, F> b)
+        friend constexpr auto operator - (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b)
         {
-            ufixed<I, F> uf;
+            fixed<I, F, sign_t> uf;
             uf.raw = a.raw - b.data();
 
             return uf;
@@ -99,17 +134,25 @@ namespace flute
 
         template <typename Int>
         requires std::is_integral_v<Int>
-        friend constexpr auto operator * (Int a, ufixed<I, F> b)
+        friend constexpr auto operator * (Int a, fixed<I, F, sign_t> b)
         {
-            using overflow_t = detail::unsigned_raw<F + I + std::numeric_limits<Int>::digits>::type;
+            using overflow_t = detail::from_bits<F + I + std::numeric_limits<Int>::digits, unsigned_t>::type;
 
-            return ufixed<I, F>::from_raw(static_cast<overflow_t>(a * b.data()));
+            return fixed<I, F, sign_t>::from_raw(static_cast<overflow_t>(a * b.data()));
         }
 
     private:
 
         T raw{};
     };
+
+
+    template <std::size_t I, std::size_t F>
+    using ufixed = fixed<I, F, unsigned_t>;
+
+    template <std::size_t I, std::size_t F>
+    using sfixed = fixed<I, F, signed_t>;
+
 
     template <typename, typename>
     struct epsilon;
