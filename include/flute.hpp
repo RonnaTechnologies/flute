@@ -12,9 +12,14 @@ namespace flute
     struct signed_t{};
     struct unsigned_t{};
 
-    namespace detail
+    namespace detail::types
     {
 
+        // Concepts
+        template <typename T>
+        concept Sign = std::is_same_v<T, signed_t> || std::is_same_v<T, unsigned_t>;
+
+        // Helpers
         template <typename...>
         struct type_list{};
 
@@ -56,18 +61,19 @@ namespace flute
         struct from_bits
         {
             using type = find_if<[]<typename T>(T) 
-                                 { 
-                                   return std::numeric_limits<T>::digits >= n_bits
-                                          && std::numeric_limits<T>::is_signed == std::is_same_v<sign_t, signed_t>; 
-                                 }, not_found, int_types>::type;
+                        { 
+                        return std::numeric_limits<T>::digits >= n_bits
+                                && std::numeric_limits<T>::is_signed == std::is_same_v<sign_t, signed_t>; 
+                        }, not_found, int_types>::type;
         };
     }
 
+
     template <std::size_t I, std::size_t F, typename sign_t>
-    requires (std::is_same_v<sign_t, unsigned_t> || std::is_same_v<sign_t, signed_t>)
+    requires detail::types::Sign<sign_t>
     class fixed
     {
-        using T = detail::from_bits<I + F, sign_t>::type;
+        using T = detail::types::from_bits<I + F, sign_t>::type;
 
     public:
 
@@ -116,7 +122,7 @@ namespace flute
 
         constexpr auto data() const noexcept { return raw; }
 
-        friend constexpr auto operator + (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b)
+        friend constexpr auto operator + (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
         {
             fixed<I, F, sign_t> uf;
             uf.raw = a.raw + b.data();
@@ -124,7 +130,7 @@ namespace flute
             return uf;
         }
 
-        friend constexpr auto operator - (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b)
+        friend constexpr auto operator - (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
         {
             fixed<I, F, sign_t> uf;
             uf.raw = a.raw - b.data();
@@ -134,9 +140,9 @@ namespace flute
 
         template <typename Int>
         requires std::is_integral_v<Int>
-        friend constexpr auto operator * (Int a, fixed<I, F, sign_t> b)
+        friend constexpr auto operator * (Int a, fixed<I, F, sign_t> b) noexcept
         {
-            using overflow_t = detail::from_bits<F + I + std::numeric_limits<Int>::digits, unsigned_t>::type;
+            using overflow_t = detail::types::from_bits<F + I + std::numeric_limits<Int>::digits, unsigned_t>::type;
 
             return fixed<I, F, sign_t>::from_raw(static_cast<overflow_t>(a * b.data()));
         }
