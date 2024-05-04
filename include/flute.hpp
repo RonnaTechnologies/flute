@@ -163,9 +163,9 @@ namespace flute
     template <typename, typename>
     struct epsilon;
 
-    template <std::size_t I, std::size_t F, typename Dest_t>
+    template <std::size_t I, std::size_t F, typename sign_t, typename Dest_t>
     requires (std::is_floating_point_v<Dest_t> && sizeof(Dest_t) <= sizeof(std::uintmax_t))
-    struct epsilon<ufixed<I, F>, Dest_t>
+    struct epsilon<fixed<I, F, sign_t>, Dest_t>
     {
         static constexpr Dest_t value = 1. / (std::uintmax_t{1} << F);
     };
