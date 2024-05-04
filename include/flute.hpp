@@ -142,7 +142,7 @@ namespace flute
         requires std::is_integral_v<Int>
         friend constexpr auto operator * (Int a, fixed<I, F, sign_t> b) noexcept
         {
-            using overflow_t = detail::types::from_bits<F + I + std::numeric_limits<Int>::digits, unsigned_t>::type;
+            using overflow_t = detail::types::from_bits<F + I + std::numeric_limits<Int>::digits, sign_t>::type;
 
             return fixed<I, F, sign_t>::from_raw(static_cast<overflow_t>(a * b.data()));
         }
