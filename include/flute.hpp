@@ -41,8 +41,8 @@ namespace flute
         struct find_if_impl<Predicate, NotFound, T, Ts...>
         {
             using type =  std::conditional_t<Predicate(T{}), 
-                                            T, 
-                                            typename find_if_impl<Predicate, NotFound, Ts...>::type>;
+                                             T, 
+                                             typename find_if_impl<Predicate, NotFound, Ts...>::type>;
         };
 
 
@@ -61,10 +61,10 @@ namespace flute
         struct from_bits
         {
             using type = find_if<[]<typename T>(T) 
-                        { 
-                        return std::numeric_limits<T>::digits >= n_bits
-                                && std::numeric_limits<T>::is_signed == std::is_same_v<sign_t, signed_t>; 
-                        }, not_found, int_types>::type;
+                         { 
+                            return std::numeric_limits<T>::digits >= n_bits
+                                   && std::numeric_limits<T>::is_signed == std::is_same_v<sign_t, signed_t>; 
+                         }, not_found, int_types>::type;
         };
     }
 
@@ -138,6 +138,15 @@ namespace flute
             return uf;
         }
 
+        template <std::size_t Iout, std::size_t Fout, 
+                  std::size_t Ir, std::size_t Fr, typename rsign_t>
+        requires std::same_as<sign_t, rsign_t>
+        constexpr auto mul(fixed<Ir, Fr, rsign_t> rhs) const noexcept
+        {
+            using overflow_t = detail::types::from_bits<F + Fr + I + Ir, sign_t>::type;
+            return fixed<Iout, Fout, sign_t>::from_raw(static_cast<overflow_t>(raw * rhs.data()) >> Fout);
+        }
+
         template <typename Int>
         requires std::is_integral_v<Int>
         friend constexpr auto operator * (Int a, fixed<I, F, sign_t> b) noexcept
@@ -145,6 +154,13 @@ namespace flute
             using overflow_t = detail::types::from_bits<F + I + std::numeric_limits<Int>::digits, sign_t>::type;
 
             return fixed<I, F, sign_t>::from_raw(static_cast<overflow_t>(a * b.data()));
+        }
+
+        template <typename Int>
+        requires std::is_integral_v<Int>
+        friend constexpr auto operator * (fixed<I, F, sign_t> a, Int b) noexcept
+        {
+            return b * a;
         }
 
     private:
