@@ -138,13 +138,20 @@ namespace flute
             return uf;
         }
 
-        template <std::size_t Iout, std::size_t Fout, 
+        template <std::size_t Iout = I, std::size_t Fout = F, 
                   std::size_t Ir, std::size_t Fr, typename rsign_t>
         requires std::same_as<sign_t, rsign_t>
         constexpr auto mul(fixed<Ir, Fr, rsign_t> rhs) const noexcept
         {
             using overflow_t = detail::types::from_bits<F + Fr + I + Ir, sign_t>::type;
             return fixed<Iout, Fout, sign_t>::from_raw(static_cast<overflow_t>(raw * rhs.data()) >> Fout);
+        }
+
+        template <std::size_t Ir, std::size_t Fr, typename rsign_t>
+        requires std::same_as<sign_t, rsign_t>
+        friend constexpr auto operator * (fixed<I, F, sign_t> a, fixed<Ir, Fr, rsign_t> b)
+        {
+            return a.mul(b);
         }
 
         template <typename Int>
