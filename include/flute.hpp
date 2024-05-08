@@ -1,5 +1,6 @@
 # pragma once
 
+#include <array>
 #include <concepts>
 #include <cstdint>
 #include <limits>
@@ -192,5 +193,70 @@ namespace flute
     {
         static constexpr Dest_t value = 1. / (std::uintmax_t{1} << F);
     };
+
+    template <typename, std::size_t>
+    class flut;
+
+    template <std::size_t I, std::size_t F, typename sign_t, std::size_t N>
+    class flut<fixed<I, F, sign_t>, N>
+    {
+        using T = fixed<I, F, sign_t>::value_type;
+
+    public:
+
+        using fixed_type = fixed<I, F, sign_t>;
+        using array_type = std::array<T, N>;
+        using value_type = T;
+
+        constexpr flut() = delete;
+
+        constexpr T at(std::size_t i) const noexcept
+        {
+            return data[i];
+        }
+
+        constexpr auto at(const fixed_type& x) const noexcept
+        {
+            using size_type = array_type::size_type;
+            const auto xa = x.template as<size_type>();
+            const auto ya = data[xa];
+            const auto yb = data[xa + 1];
+            return fixed_type::from_raw(ya) + fixed_type::from_raw(yb - ya) * (x - fixed_type{xa}); 
+        }
+
+        template <typename Input_t>
+        static constexpr flut<fixed_type, N> make(const std::array<Input_t, N>& input)
+        {
+            return [](const auto& input)
+            {
+                using size_type = array_type::size_type;
+                array_type output;
+                for(size_type i = 0; i < input.size(); ++i)
+                {
+                    output[i] = fixed_type{input[i]}.data();
+                }
+                return flut<fixed_type, N>{output};
+            }(input);
+        }
+
+        static constexpr flut<fixed_type, N> make_from_raw(const std::array<T, N>& input)
+        {
+            return flut<fixed_type, N>{input};
+        }
+
+    private:
+
+
+        constexpr explicit flut(std::array<T, N>&& arr) : data{arr} 
+        {
+        }
+        
+        constexpr explicit flut(const std::array<T, N>& arr) : data{arr} 
+        {
+        }
+
+        array_type data;
+    };
+
 
 } // namespace flute
