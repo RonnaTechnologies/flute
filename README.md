@@ -8,6 +8,9 @@ A C++20 fixed-point single header library, for embedded devices.
 
 Flute is a C++20 fixed-point library. It aims to provide a modern interface that allows to deal with fixed-point arithmetic. It is meant to be used on systems that don't have an FPU (floating-point unit), such as micro-controllers.
 
+Flute is a bit different from other fixed-point libraries. It includes utilities for look-up tables (LUT, hence the name "flute").
+
+
 ## Features
 
 * **Zero-overhead:** You only pay for what you need. For instance (real-world example), compiling for an ARM Cortex-M3 using GCC 13.2, *flute* allows to multiply an integer and a `ufixed<12, 20>` as fast as a regular 32-bit integer multiplication. Compared to multiplying an integer with a 32-bit float, this allows to save about 1277 bytes in the compiled firmware.
@@ -21,7 +24,7 @@ Flute is a C++20 fixed-point library. It aims to provide a modern interface that
 
 ### Prerequisites
 
-Since this is a header only library, all you need is a C++20 compiler. This library has only been tested with GCC 13.2 (x86-64 and arm-none-eabi). It should work with GCC 10 and Clang 16.
+Since this is a header only library, all you need is a C++20 compiler. This library has only been tested with GCC 13.2 (x86-64 and arm-none-eabi). It should compile with GCC 10 and Clang 16.
 
 ### Installing
 
