@@ -1,4 +1,4 @@
-# pragma once
+#pragma once
 
 #include <array>
 #include <concepts>
@@ -123,20 +123,29 @@ namespace flute
 
         constexpr auto data() const noexcept { return raw; }
 
+        template <typename Int>
+        requires std::is_integral_v<Int>
+        friend constexpr auto operator + (Int a, fixed<I, F, sign_t> b) noexcept
+        {
+            fixed<I, F, sign_t> f;
+            f.raw = (a << F) + b.data();
+            return f;
+        }
+
         friend constexpr auto operator + (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
         {
-            fixed<I, F, sign_t> uf;
-            uf.raw = a.raw + b.data();
+            fixed<I, F, sign_t> f;
+            f.raw = a.raw + b.data();
 
-            return uf;
+            return f;
         }
 
         friend constexpr auto operator - (fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
         {
-            fixed<I, F, sign_t> uf;
-            uf.raw = a.raw - b.data();
+            fixed<I, F, sign_t> f;
+            f.raw = a.raw - b.data();
 
-            return uf;
+            return f;
         }
 
         template <std::size_t Iout = I, std::size_t Fout = F, 
@@ -192,6 +201,51 @@ namespace flute
     struct epsilon<fixed<I, F, sign_t>, Dest_t>
     {
         static constexpr Dest_t value = 1. / (std::uintmax_t{1} << F);
+    };
+
+
+    template <typename T, std::size_t N>
+    class lut
+    {
+
+    public:
+
+        using array_type = std::array<T, N>;
+        using value_type = T;
+
+        constexpr T at(std::size_t i) const noexcept
+        {
+            return data[i];
+        }
+
+        template <std::size_t I, std::size_t F, typename sign_t>
+        constexpr auto at(const fixed<I, F, sign_t>& x) const noexcept
+        {
+            using fixed_type = fixed<I, F, sign_t>;
+            using size_type = array_type::size_type;
+            const auto xa = x.template as<size_type>();
+            const auto ya = data[xa];
+            const auto yb = data[xa + 1];
+            return ya + (yb - ya) * (x - fixed_type{xa});
+        }
+
+        static constexpr lut<T, N> make(const std::array<T, N>& input) 
+        {
+            return lut<T, N>{input};
+        }
+
+    private:
+
+        constexpr explicit lut(std::array<T, N>&& arr) : data{arr} 
+        {
+        }
+        
+        constexpr explicit lut(const std::array<T, N>& arr) : data{arr} 
+        {
+        }
+
+        array_type data;
+
     };
 
     template <typename, std::size_t>
