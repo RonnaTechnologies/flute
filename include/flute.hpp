@@ -278,6 +278,22 @@ namespace flute
             return fixed_type::from_raw(ya) + fixed_type::from_raw(yb - ya) * (x - fixed_type{xa}); 
         }
 
+        template <typename Callable>
+        requires requires(Callable&& f) { f(typename array_type::size_type{0}); }
+        static constexpr flut<fixed_type, N> generate(Callable&& f)
+        {
+            return [](Callable&& f)
+            {
+                using size_type = array_type::size_type;
+                array_type output;
+                for(size_type i = 0; i < N; ++i)
+                {
+                    output[i] = fixed_type{f(i)}.data();
+                }
+                return flut<fixed_type, N>{output};
+            }(f);
+        }
+
         template <typename Input_t>
         static constexpr flut<fixed_type, N> make(const std::array<Input_t, N>& input)
         {
