@@ -215,6 +215,7 @@ namespace flute
         using array_type = std::array<T, N>;
         using value_type = T;
 
+
         constexpr T at(std::size_t i) const noexcept
         {
             return data[i];
@@ -234,6 +235,22 @@ namespace flute
         static constexpr lut<T, N> make(const std::array<T, N>& input)
         {
             return lut<T, N>{ input };
+        }
+
+        template <typename Callable>
+            requires requires(Callable&& f) { f(typename array_type::size_type{ 0 }); }
+        static constexpr lut<T, N> generate(Callable&& f)
+        {
+            return [](Callable&& f)
+            {
+                using size_type = array_type::size_type;
+                array_type output;
+                for (size_type i = 0; i < N; ++i)
+                {
+                    output[i] = f(i);
+                }
+                return lut<T, N>{ output };
+            }(f);
         }
 
     private:
