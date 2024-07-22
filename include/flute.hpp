@@ -132,25 +132,17 @@ namespace flute
             requires std::is_integral_v<Int>
         friend constexpr auto operator+(Int a, fixed<I, F, sign_t> b) noexcept
         {
-            fixed<I, F, sign_t> f;
-            f.raw = (a << F) + b.data();
-            return f;
+            return fixed<I, F, sign_t>::from_raw((a << F) + b.data());
         }
 
         friend constexpr auto operator+(fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
         {
-            fixed<I, F, sign_t> f;
-            f.raw = a.raw + b.data();
-
-            return f;
+            return fixed<I, F, sign_t>::from_raw(a.raw + b.data());
         }
 
         friend constexpr auto operator-(fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
         {
-            fixed<I, F, sign_t> f;
-            f.raw = a.raw - b.data();
-
-            return f;
+            return fixed<I, F, sign_t>::from_raw(a.raw - b.data());
         }
 
         template <std::size_t Iout = I, std::size_t Fout = F, std::size_t Ir, std::size_t Fr, typename rsign_t>
