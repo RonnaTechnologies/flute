@@ -1,0 +1,4 @@
+site_name: flute documentation
+docs_dir: doc
+theme:
+  name: material
