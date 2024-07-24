@@ -1,17 +1,51 @@
 site_name: flute documentation
 docs_dir: doc
+
+# Repository
+
+repo_name: RonnaTechnologies/flute
+repo_url: https://github.com/RonnaTechnologies/flute
+
+# Copyright
+copyright: 
+  Copyright &copy; 2024 <a href="https://ronnatech.com" target="_blank">Ronna Technologies</a>
+
 theme:
   name: material
   features:
-    - navigation.tabs
     - navigation.sections
-    - toc.integrate
+    - navigation.footer
+    - navigation.indexes
+    - navigation.tracking
+    - toc.follow
     - search.suggest
     - search.highlight
-    - content.tabs.link
     - content.code.annotate 
     - content.code.copy
+    - content.tooltips
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
 markdown_extensions:
+  - footnotes
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -19,5 +53,10 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-copyright:
-  © 2024 <a href="https://ronnatech.com" target="_blank">Ronna Technologies</a>
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - About flute: index.md
+  - Fixed-point numbers: fixed_point_numbers.md
+  - Flute Tutorial: flute_tutorial.md
