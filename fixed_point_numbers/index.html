@@ -528,17 +528,13 @@ To meet our example's requirements, we need to have a <span class="arithmatex">\
 However, the maximum value depends on both its integer part <span class="arithmatex">\(i\)</span>, and its fractional part <span class="arithmatex">\(f\)</span>.
 The maximum value corresponding to the integer part is <span class="arithmatex">\(2^i - 1\)</span>, to which we must add the maximum of the fractional part: <span class="arithmatex">\(1 - 2^{-f}\)</span>.
 Adding the two values leads to:
-$$
-0 \leq UQi.f \leq 2^i - 2^f.
-$$
+$$ 0 \leq UQi.f \leq 2^i - 2^f.$$
 For instance, the maximum value of a <span class="arithmatex">\(Q4.4\)</span> number is <span class="arithmatex">\(2^4 - 2^{-4} = 16 - \frac{1}{16} = 15.9375.\)</span></p>
 <p>Now, if we consider signed fixed-point numbers, the minimum value becomes <span class="arithmatex">\(-2^{i - 1}\)</span>, which is the same as a regular signed integer.
 The maximum value, is <span class="arithmatex">\(2^{i - 1} - 2^{-f}\)</span>.
 A signed number's most significant bit holds the sign, so a <span class="arithmatex">\(Q3.4\)</span> fixed-point number requires 8 bits of data<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 <p>We can see that, for a signed fixed-point, the following applies:
-$$
--2^{i - 1} \leq Qi.f \leq 2^{i - 1} - 2^{-f}.
-$$
+$$ -2^{i - 1} \leq Qi.f \leq 2^{i - 1} - 2^{-f}. $$
 For instance, a <span class="arithmatex">\(Q3.4\)</span> number goes from <span class="arithmatex">\(-2^2 = -4\)</span> to <span class="arithmatex">\(2^2 - 2^{-4} = 3.9375\)</span>.</p>
 <h2 id="precision-of-fixed-point-numbers">Precision of fixed-point numbers</h2>
 <p>The precision of a fixed-point solely defined by its number of fractional bits:
