@@ -9,23 +9,25 @@
       
       
       
+        <link rel="prev" href="..">
       
-        <link rel="next" href="fixed_point_numbers/">
+      
+        <link rel="next" href="../flute_tutorial/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
     
     
       
-        <title>flute documentation</title>
+        <title>Fixed-point numbers - flute documentation</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -70,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#about-flute" class="md-skip">
+        <a href="#fixed-point-numbers" class="md-skip">
           Skip to content
         </a>
       
@@ -86,7 +88,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="flute documentation" class="md-header__button md-logo" aria-label="flute documentation" data-md-component="logo">
+    <a href=".." title="flute documentation" class="md-header__button md-logo" aria-label="flute documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              About flute
+              Fixed-point numbers
             
           </span>
         </div>
@@ -231,7 +233,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="flute documentation" class="md-nav__button md-logo" aria-label="flute documentation" data-md-component="logo">
+    <a href=".." title="flute documentation" class="md-nav__button md-logo" aria-label="flute documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -258,6 +260,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About flute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -274,18 +296,18 @@
           
   
   <span class="md-ellipsis">
-    About flute
+    Fixed-point numbers
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    About flute
+    Fixed-point numbers
   </span>
   
 
@@ -307,62 +329,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-flute" class="md-nav__link">
+  <a href="#what-are-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      What is flute?
+      What are fixed-point numbers?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-example" class="md-nav__link">
+  <a href="#why-use-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic example
+      Why use fixed-point numbers?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#q-notation" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      \(Q\) notation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
+  <a href="#range-of-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      How to use
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How to use">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
+      Range of fixed-point numbers
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#using-the-library" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#precision-of-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      Using the library
+      Precision of fixed-point numbers
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#internal-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal representation
+    </span>
+  </a>
   
 </li>
       
@@ -381,27 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="fixed_point_numbers/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Fixed-point numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="flute_tutorial/" class="md-nav__link">
+      <a href="../flute_tutorial/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -441,62 +437,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-flute" class="md-nav__link">
+  <a href="#what-are-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      What is flute?
+      What are fixed-point numbers?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-example" class="md-nav__link">
+  <a href="#why-use-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic example
+      Why use fixed-point numbers?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#q-notation" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      \(Q\) notation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
+  <a href="#range-of-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      How to use
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How to use">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
+      Range of fixed-point numbers
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#using-the-library" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#precision-of-fixed-point-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      Using the library
+      Precision of fixed-point numbers
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#internal-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal representation
+    </span>
+  </a>
   
 </li>
       
@@ -518,41 +508,52 @@
   
 
 
-<h1 id="about-flute">About flute</h1>
-<h2 id="what-is-flute">What is flute?</h2>
-<p>Flute is a C++20 fixed-point library. It aims to provide a
- modern interface that allows to deal with fixed-point arithmetic. It is
- meant to be used on systems that don't have an FPU (floating-point
-unit), such as micro-controllers.</p>
-<p>Flute is a bit different from other fixed-point libraries. It includes utilities for look-up tables (LUT, hence the name "flute").</p>
-<h2 id="basic-example">Basic example</h2>
-<p>Here is a simple example that shows how to use the library:</p>
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;flute.hpp&quot;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">{</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">flute</span><span class="p">;</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="n">ufixed</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pi</span><span class="p">{</span><span class="mf">3.1415926</span><span class="p">};</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">two_pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="k">static_assert</span><span class="p">((</span><span class="n">two_pi</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pi</span><span class="p">).</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pi</span><span class="p">.</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">());</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
-</span></code></pre></div>
-<h2 id="features">Features</h2>
-<ul>
-<li><strong>Zero-overhead:</strong> You only pay for what you need. For instance (real-world example), compiling for an ARM Cortex-M3 using GCC 13.2, <em>flute</em> allows to multiply an integer and a <code>ufixed&lt;12, 20&gt;</code> as fast as a regular 32-bit integer multiplication. Compared to multiplying an integer with a 32-bit float, this allows to save about 1277 bytes in the compiled firmware.</li>
-<li><strong>Embedded-friendly:</strong> The STL is not required. <em>Flute</em> only needs a few C++ headers: <code>array</code>, <code>concepts</code>, <code>limits</code>, and <code>type_traits</code>.</li>
-<li><strong>Modern C++ standards:</strong> Requires <strong>C++20</strong>. <em>Concepts</em> make the code more reliable and provide readable error messages. Moreover, modern C++ is key to achieve optimal performance.</li>
-<li><strong>Compile-time evaluation:</strong> Everything is <strong>constexpr</strong>! This has a very positive impact on performance too.</li>
-<li><strong>Header-only library:</strong> No need to link the library, simply include <code>flute.hpp</code> into your <em>.cpp</em> files.</li>
-<li><strong>Policy-based design:</strong> Some fixed-point operations require to make choices, especially regarding overflow.</li>
-</ul>
-<h2 id="how-to-use">How to use</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<p>Since this is a header only library, all you need is a C++20 compiler. This library has only been tested with GCC 13.2 (x86-64 and arm-none-eabi). It should compile with GCC 10 and Clang 16.</p>
-<h3 id="using-the-library">Using the library</h3>
-<p>Flute is a header-only library, so all you need to do is include <code>flute.hpp</code> into your C++ files.</p>
+<h1 id="fixed-point-numbers">Fixed-point numbers</h1>
+<h2 id="what-are-fixed-point-numbers">What are fixed-point numbers?</h2>
+<p>In essence, fixed-point numbers are a very simple representation of rational (non-integer) numbers.
+The idea is that there is a fixed number of digits representing the fractional part of a number. The same goes for the integer part, so a fixed-point number can be: 12.75, where 12 is the integer part and 75 the fractional part. In this example, if there are always two digits before and after the point, we call that a fixed-point number, at least in base 10.</p>
+<h2 id="why-use-fixed-point-numbers">Why use fixed-point numbers?</h2>
+<p>Fixed-point numbers are mostly useful in the embedded world, where some micro-controllers don't have a floating point unit (FPU), that is: they don't have the required hardware to perform floating-point operations.
+On those micro-controllers, floating-point arithmetic is still possible, but it is very slow.</p>
+<p>On the other hand, fixed-point numbers are very simple. Their simplicity is also the reason why they are pretty fast for basic arithmetic operations. They also allow to choose the position of the radix point, which can be very convenient.</p>
+<h2 id="q-notation"><span class="arithmatex">\(Q\)</span> notation</h2>
+<p>The <span class="arithmatex">\(Q\)</span> notation is often used to represent binary fixed-point numbers. Imagine that we have a 8-bit micro-controller and want to perform some non-integer computations. To that end, we need parameter that goes from <span class="arithmatex">\(0\)</span> to <span class="arithmatex">\(10\)</span>, with a step of <span class="arithmatex">\(0.1\)</span>.</p>
+<p>To satisfy those conditions, we need the integer part to go from <span class="arithmatex">\(0\)</span> to, at least, <span class="arithmatex">\(10\)</span>, and the fractional part to have a smallest value lower than 0.1, that is <span class="arithmatex">\(\leq2^{-4}\)</span>, as <span class="arithmatex">\(2^{-4} = 0.0625\)</span>.</p>
+<p>The <span class="arithmatex">\(Q\)</span> notation comes in handy, in that it lets use represent such a number as: <span class="arithmatex">\(UQi.f\)</span>, where <span class="arithmatex">\(i\)</span> is the integer part, and <span class="arithmatex">\(f\)</span> the fractional part of the number we wish to represent.
+The <span class="arithmatex">\(U\)</span> prefix means that we are dealing with unsigned numbers.
+To meet our example's requirements, we need to have a <span class="arithmatex">\(UQ4.4\)</span> number.</p>
+<p>Of course, a <span class="arithmatex">\(UQ4.4\)</span> number is stored as a single byte.</p>
+<h2 id="range-of-fixed-point-numbers">Range of fixed-point numbers</h2>
+<p>One of the most important properties of fixed-point numbers is their range. The minimum value of an unsigned fixed-point number is <span class="arithmatex">\(0\)</span>.
+However, the maximum value depends on both its integer part <span class="arithmatex">\(i\)</span>, and its fractional part <span class="arithmatex">\(f\)</span>.
+The maximum value corresponding to the integer part is <span class="arithmatex">\(2^i - 1\)</span>, to which we must add the maximum of the fractional part: <span class="arithmatex">\(1 - 2^{-f}\)</span>.
+Adding the two values leads to:
+$$
+0 \leq UQi.f \leq 2^i - 2^f.
+$$
+For instance, the maximum value of a <span class="arithmatex">\(Q4.4\)</span> number is <span class="arithmatex">\(2^4 - 2^{-4} = 16 - \frac{1}{16} = 15.9375.\)</span></p>
+<p>Now, if we consider signed fixed-point numbers, the minimum value becomes <span class="arithmatex">\(-2^{i - 1}\)</span>, which is the same as a regular signed integer.
+The maximum value, is <span class="arithmatex">\(2^{i - 1} - 2^{-f}\)</span>.
+A signed number's most significant bit holds the sign, so a <span class="arithmatex">\(Q3.4\)</span> fixed-point number requires 8 bits of data<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>We can see that, for a signed fixed-point, the following applies:
+$$
+-2^{i - 1} \leq Qi.f \leq 2^{i - 1} - 2^{-f}.
+$$
+For instance, a <span class="arithmatex">\(Q3.4\)</span> number goes from <span class="arithmatex">\(-2^2 = -4\)</span> to <span class="arithmatex">\(2^2 - 2^{-4} = 3.9375\)</span>.</p>
+<h2 id="precision-of-fixed-point-numbers">Precision of fixed-point numbers</h2>
+<p>The precision of a fixed-point solely defined by its number of fractional bits:
+$$
+\epsilon(Qi.f) = 2^{-f}.
+$$</p>
+<h2 id="internal-representation">Internal representation</h2>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>This is the Texas Instruments notation.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -581,15 +582,31 @@ unit), such as micro-controllers.</p>
       
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: About flute">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                About flute
+              </div>
+            </div>
+          </a>
+        
         
           
-          <a href="fixed_point_numbers/" class="md-footer__link md-footer__link--next" aria-label="Next: Fixed-point numbers">
+          <a href="../flute_tutorial/" class="md-footer__link md-footer__link--next" aria-label="Next: Flute Tutorial">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Fixed-point numbers
+                Flute Tutorial
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -627,10 +644,10 @@ unit), such as micro-controllers.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.footer", "navigation.indexes", "navigation.tracking", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tooltips"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.footer", "navigation.indexes", "navigation.tracking", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3220b9d7.min.js"></script>
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
