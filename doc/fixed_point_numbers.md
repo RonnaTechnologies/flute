@@ -30,9 +30,7 @@ One of the most important properties of fixed-point numbers is their range. The 
 However, the maximum value depends on both its integer part $i$, and its fractional part $f$.
 The maximum value corresponding to the integer part is $2^i - 1$, to which we must add the maximum of the fractional part: $1 - 2^{-f}$.
 Adding the two values leads to:
-$$
-0 \leq UQi.f \leq 2^i - 2^f.
-$$
+$$ 0 \leq UQi.f \leq 2^i - 2^f.$$
 For instance, the maximum value of a $Q4.4$ number is $2^4 - 2^{-4} = 16 - \frac{1}{16} = 15.9375.$
 
 Now, if we consider signed fixed-point numbers, the minimum value becomes $-2^{i - 1}$, which is the same as a regular signed integer.
@@ -41,9 +39,7 @@ A signed number's most significant bit holds the sign, so a $Q3.4$ fixed-point n
 [^1]: This is the Texas Instruments notation.
 
 We can see that, for a signed fixed-point, the following applies:
-$$
--2^{i - 1} \leq Qi.f \leq 2^{i - 1} - 2^{-f}.
-$$
+$$ -2^{i - 1} \leq Qi.f \leq 2^{i - 1} - 2^{-f}. $$
 For instance, a $Q3.4$ number goes from $-2^2 = -4$ to $2^2 - 2^{-4} = 3.9375$.
 
 ## Precision of fixed-point numbers
