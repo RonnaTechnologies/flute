@@ -410,6 +410,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#converting-from-and-to-an-integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Converting from and to an integer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-point-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed-point arithmetic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixed-point arithmetic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addition-and-subtraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Addition and subtraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiplication
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -551,6 +593,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#converting-from-and-to-an-integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Converting from and to an integer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-point-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed-point arithmetic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixed-point arithmetic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addition-and-subtraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Addition and subtraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiplication
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -574,22 +658,22 @@
   
 
 
-<h1 id="fixed-point-numbers">Fixed-point numbers</h1>
-<h2 id="what-are-fixed-point-numbers">What are fixed-point numbers?</h2>
+<h1 id="fixed-point-numbers">Fixed-point numbers<a class="headerlink" href="#fixed-point-numbers" title="Permanent link">&para;</a></h1>
+<h2 id="what-are-fixed-point-numbers">What are fixed-point numbers?<a class="headerlink" href="#what-are-fixed-point-numbers" title="Permanent link">&para;</a></h2>
 <p>In essence, fixed-point numbers are a very simple representation of rational (non-integer) numbers.
 The idea is that there is a fixed number of digits representing the fractional part of a number. The same goes for the integer part, so a fixed-point number can be: 12.75, where 12 is the integer part and 75 the fractional part. In this example, if there are always two digits before and after the point, we call that a fixed-point number, at least in base 10.</p>
-<h2 id="why-use-fixed-point-numbers">Why use fixed-point numbers?</h2>
+<h2 id="why-use-fixed-point-numbers">Why use fixed-point numbers?<a class="headerlink" href="#why-use-fixed-point-numbers" title="Permanent link">&para;</a></h2>
 <p>Fixed-point numbers are mostly useful in the embedded world, where some micro-controllers don't have a floating point unit (FPU), that is: they don't have the required hardware to perform floating-point operations.
 On those micro-controllers, floating-point arithmetic is still possible, but it is very slow.</p>
 <p>On the other hand, fixed-point numbers are very simple. Their simplicity is also the reason why they are pretty fast for basic arithmetic operations. They also allow to choose the position of the radix point, which can be very convenient.</p>
-<h2 id="q-notation"><span class="arithmatex">\(Q\)</span> notation</h2>
+<h2 id="q-notation"><span class="arithmatex">\(Q\)</span> notation<a class="headerlink" href="#q-notation" title="Permanent link">&para;</a></h2>
 <p>The <span class="arithmatex">\(Q\)</span> notation is often used to represent binary fixed-point numbers. Imagine that we have a 8-bit micro-controller and want to perform some non-integer computations. To that end, we need parameter that goes from <span class="arithmatex">\(0\)</span> to <span class="arithmatex">\(10\)</span>, with a step of <span class="arithmatex">\(0.1\)</span>.</p>
 <p>To satisfy those conditions, we need the integer part to go from <span class="arithmatex">\(0\)</span> to, at least, <span class="arithmatex">\(10\)</span>, and the fractional part to have a smallest value lower than 0.1, that is <span class="arithmatex">\(\leq2^{-4}\)</span>, as <span class="arithmatex">\(2^{-4} = 0.0625\)</span>.</p>
 <p>The <span class="arithmatex">\(Q\)</span> notation comes in handy, in that it lets use represent such a number as: <span class="arithmatex">\(UQi.f\)</span>, where <span class="arithmatex">\(i\)</span> is the integer part, and <span class="arithmatex">\(f\)</span> the fractional part of the number we wish to represent.
 The <span class="arithmatex">\(U\)</span> prefix means that we are dealing with unsigned numbers.
 To meet our example's requirements, we need to have a <span class="arithmatex">\(UQ4.4\)</span> number.</p>
 <p>Of course, a <span class="arithmatex">\(UQ4.4\)</span> number is stored as a single byte.</p>
-<h2 id="range-of-fixed-point-numbers">Range of fixed-point numbers</h2>
+<h2 id="range-of-fixed-point-numbers">Range of fixed-point numbers<a class="headerlink" href="#range-of-fixed-point-numbers" title="Permanent link">&para;</a></h2>
 <p>One of the most important properties of fixed-point numbers is their range. The minimum value of an unsigned fixed-point number is <span class="arithmatex">\(0\)</span>.
 However, the maximum value depends on both its integer part <span class="arithmatex">\(i\)</span>, and its fractional part <span class="arithmatex">\(f\)</span>.
 The maximum value corresponding to the integer part is <span class="arithmatex">\(2^i - 1\)</span>, to which we must add the maximum of the fractional part: <span class="arithmatex">\(1 - 2^{-f}\)</span>.
@@ -610,19 +694,19 @@ $$
 \end{equation}
 $$
 For instance, a <span class="arithmatex">\(Q3.4\)</span> number goes from <span class="arithmatex">\(-2^2 = -4\)</span> to <span class="arithmatex">\(2^2 - 2^{-4} = 3.9375\)</span>.</p>
-<h2 id="precision-of-fixed-point-numbers">Precision of fixed-point numbers</h2>
+<h2 id="precision-of-fixed-point-numbers">Precision of fixed-point numbers<a class="headerlink" href="#precision-of-fixed-point-numbers" title="Permanent link">&para;</a></h2>
 <p>The precision of a fixed-point solely defined by its number of fractional bits:
 $$
 \begin{equation}
 \epsilon(Qi.f) = 2^{-f}.
 \end{equation}
 $$</p>
-<h2 id="internal-representation">Internal representation</h2>
+<h2 id="internal-representation">Internal representation<a class="headerlink" href="#internal-representation" title="Permanent link">&para;</a></h2>
 <p>The internal representation of a fixed-point number depends on the number of bits that are necessary to store it.
 As an example, a <span class="arithmatex">\(UQ4.4\)</span> requires 8 bits, so a single byte can be used to represent the number.
 Similarly, a <span class="arithmatex">\(Q3.4\)</span> number also requires a full byte to be represented, as one extra bit is required to store its sign.
 So, basically, to represent a <span class="arithmatex">\(UQi.f\)</span>, <span class="arithmatex">\(i + f\)</span> bits are required, and for a <span class="arithmatex">\(Qi.f\)</span>, <span class="arithmatex">\(i + f + 1\)</span> bits are needed.</p>
-<h2 id="from-and-to-fixed-point">From and to fixed-point</h2>
+<h2 id="from-and-to-fixed-point">From and to fixed-point<a class="headerlink" href="#from-and-to-fixed-point" title="Permanent link">&para;</a></h2>
 <p>A fixed-point number is stored as an integer, but it needs to represent an integer and a fractional part.
 We know that the fractional part's precision is <span class="arithmatex">\(2^{-f}\)</span>, so it seems quite natural to represent a fixed-point number <span class="arithmatex">\(UQi.f\)</span> as:
 $$
@@ -637,9 +721,97 @@ $$
     UQi.f = N \ll f.
 \end{equation}
 $$</p>
-<h3 id="converting-from-floating-point">Converting from floating-point</h3>
+<h3 id="converting-from-floating-point">Converting from floating-point<a class="headerlink" href="#converting-from-floating-point" title="Permanent link">&para;</a></h3>
 <p>Some constants, like <span class="arithmatex">\(\pi\)</span>, need to be initialized as floating-point numbers, as this is the most intuitive representation. As constants are evaluated at compile-time (at least in C++), it would be very interesting to be able to convert a given constant from its floating-point representation to a fixed-point number.</p>
-<h3 id="converting-to-floating-point">Converting to floating-point</h3>
+<p>Let, $F, a floating-point number, its fixed-point representation is given by:
+$$
+\begin{equation}
+UQi.f = F \times 2^f.
+\end{equation}
+$$
+For instance, let's say we need to perform some computations that involve <span class="arithmatex">\(\pi\)</span> on a 8-bit micro-controller.
+The integer part of <span class="arithmatex">\(\pi\)</span> is <span class="arithmatex">\(3\)</span>, so we only 2 bits to represent it, which leaves us 6 bits for the fractional part.
+If we use a <span class="arithmatex">\(UQ2.6\)</span> number, our approximation of <span class="arithmatex">\(\pi\)</span> will have a precision of <span class="arithmatex">\(2^{-6} = 0.015625\)</span>.
+Assuming that is a good enough approximation, we get the following fixed-point internal representation of <span class="arithmatex">\(\pi\)</span>: <span class="arithmatex">\(\lfloor \pi \times 2^6 \rfloor = 201\)</span>.
+Since <span class="arithmatex">\(201 = 3 \ times 2^6 + 9\)</span>, the fixed-point number that we get is in fact: <span class="arithmatex">\(3 + \frac{9}{2^6} \approx 3.1406\)</span>.
+The same approximation with a <span class="arithmatex">\(UQ4.12\)</span> number gives an internal representation of <span class="arithmatex">\(12,868\)</span>, which represents the number <span class="arithmatex">\(3.1416\)</span>.
+Again, same approximation with a <span class="arithmatex">\(UQ12.20\)</span> leads to <span class="arithmatex">\(3,294,198\)</span>, which represents the number <span class="arithmatex">\(\approx 3.141592\)</span>.</p>
+<p>None of the above will ever be very close to <span class="arithmatex">\(\pi\)</span>, but they can be very good approximations, and, as we'll see later, they will lead to very fast computations.</p>
+<h3 id="converting-to-floating-point">Converting to floating-point<a class="headerlink" href="#converting-to-floating-point" title="Permanent link">&para;</a></h3>
+<p>Let's consider the last example of the previous section.
+How did we get the approximation of <span class="arithmatex">\(3.141592\)</span> from the internal representation <span class="arithmatex">\(3,294,198\)</span> of our <span class="arithmatex">\(UQ12.20\)</span> number?
+The answer is quite simple: instead of multiplying by <span class="arithmatex">\(2^{20}\)</span>, we divided by <span class="arithmatex">\(2^{20}\)</span>.
+This leads to:
+$$
+\begin{equation}
+F = UQi.f \times 2^{-f}.
+\end{equation}
+$$
+Let's verify this equation: <span class="arithmatex">\(\frac{3,294,198}{2^20} = \frac{3,294,198}{1,048,576} \approx 3.141592\)</span>.</p>
+<h3 id="converting-from-and-to-an-integer">Converting from and to an integer<a class="headerlink" href="#converting-from-and-to-an-integer" title="Permanent link">&para;</a></h3>
+<p>The same formulas apply to integer, so equations <span class="arithmatex">\((6)\)</span> and <span class="arithmatex">\((7)\)</span> can be used to retrieve an integer <span class="arithmatex">\(I\)</span> directly by replacing <span class="arithmatex">\(F\)</span> by <span class="arithmatex">\(I\)</span>.</p>
+<h2 id="fixed-point-arithmetic">Fixed-point arithmetic<a class="headerlink" href="#fixed-point-arithmetic" title="Permanent link">&para;</a></h2>
+<p>One of the main advantages of fixed-point numbers is their ability to perform fast arithmetic operations.
+The internal representation of a fixed-point number being an integer, operations are almost as fast as integer operations.</p>
+<h3 id="addition-and-subtraction">Addition and subtraction<a class="headerlink" href="#addition-and-subtraction" title="Permanent link">&para;</a></h3>
+<p>Things are quite simple for addition and subtraction of fixed-point numbers, as long as they share the same integer and fractional parts.
+Let's consider addition of two fixed-point numbers.
+We would like to add a <span class="arithmatex">\(Qi_1.f_1\)</span> number to a <span class="arithmatex">\(Qi_2.f_2\)</span> number.
+These numbers can be represented by <span class="arithmatex">\(Qi_1.f_1 = N_1 \times 2^{f_1}\)</span> and <span class="arithmatex">\(Qi_2.f_2 = N_2 \times 2^{f_2}\)</span>.
+If <span class="arithmatex">\(f_1 = f_2 = f\)</span>, we get immediately:
+$$
+\begin{equation}
+Qi_1.f + Qi_2.f = \left( N_1 + N_2 \right) \times 2^{f}.
+\end{equation}
+$$
+Of course things get a little bit more complicated if <span class="arithmatex">\(f_1 \neq f_2\)</span>.</p>
+<p>Another simple case is the addition of a fixed-point number <span class="arithmatex">\(Qi.f\)</span> and an integer <span class="arithmatex">\(I\)</span>:
+$$
+\begin{equation}
+I + Qi.f = N_I \times 2^{f} + Qi.f = \left( N_I + N \right) \times 2^f.
+\end{equation}
+$$</p>
+<p>The subtraction isn't more complex than the addition, as the sign is handled by the underlying integer operation.
+Overflow can happen, as it can happen with integer addition and subtraction.</p>
+<h3 id="multiplication">Multiplication<a class="headerlink" href="#multiplication" title="Permanent link">&para;</a></h3>
+<p>Now, say we want to multiply <span class="arithmatex">\(Qi_1.f_1\)</span> and <span class="arithmatex">\(Qi_2.f_2\)</span>: 
+$$
+\begin{equation}
+Qi_1.f_1 \times Qi_2.f_2 = \left( N_1 \times 2^{f_1} \right) \times \left( N_2 \times 2^{f_2} \right) = N_1\,N_2 \times 2^{f_1 + f_2}.
+\end{equation}
+$$
+Let's call <span class="arithmatex">\(Qi_\times.f_\times\)</span> the result of the previous multiplication.
+It leads to:
+$$
+Qi_\times.f_\times = Qi_1.f_1 \times Qi_2.f_2,
+$$
+and so:
+$$
+N_\times 2^{f_\times} = N_1\,N_2 \times 2^{f_1 + f_2},
+$$
+thus, the internal representation of the multiplication's result is:
+$$
+\begin{equation}
+N_\times = \left( N_1\,N_2 \times 2^{f_1 + f_2} \right) \times 2^{-f_\times}.
+\end{equation}
+$$
+The value of <span class="arithmatex">\(f_\times\)</span> can be anything we want, but great care has to be taken, as <span class="arithmatex">\(N_1\,N_2 \times 2^{f_1 + f_2}\)</span> can lead to integer overflow.</p>
+<p>As an example, imagine we want to compute the perimeter of a circle.*
+The diameter of the circle is <span class="arithmatex">\(d = 1.75\)</span>, so its perimeter is <span class="arithmatex">\(d \times \pi\)</span>.
+We use <span class="arithmatex">\(UQ10.22\)</span> for both numbers, which requires a 32-bit integer internally, so <span class="arithmatex">\(N_d = 1.75 \times 2^{22} = 7,340,032\)</span> and <span class="arithmatex">\(N_\pi = \pi \times 2^{22} \approx 13,176,795\)</span>.
+We get <span class="arithmatex">\(N_{d \times \pi} = N_d N_{\pi} \times 2^{f_d + f_{\pi}} = 7,340,032 \times 13,176,795 = 96,718,089,617,408\)</span>.
+This intermediate value is a very big number that overflows 32-bit integers by a lot, so it needs to be stored in a temporary 64-bit integer.</p>
+<p>Now we want the result to be <span class="arithmatex">\(UQ10.22\)</span> as well, so <span class="arithmatex">\(f_{d \times \pi} = 22\)</span>, which implies that the internal representation of the multiplication is <span class="arithmatex">\(96,718,089,617,408 \times 2^{-22} = 23,059,389\)</span>.
+Let's convert that number back to a floating-point: <span class="arithmatex">\(F_{d \times \pi} = 23,059,389 \times 2^{-22} \approx 5.49778688\)</span>.
+The actual result is <span class="arithmatex">\(5.49778714\)</span>, so that's not too bad of an approximation.</p>
+<p>What we have done is multiply two 32-bit integers, store the result in a 64-bit integer and multiply by <span class="arithmatex">\(2^{-22}\)</span> to get the internal representation of the result.
+Multiplying by <span class="arithmatex">\(2^{-22}\)</span> is the same as shifting right by 22 bits (<span class="arithmatex">\(\gg 22\)</span>), which is computationally inexpensive. </p>
+<p>Multiplying by an integer <span class="arithmatex">\(I\)</span> is a little bit easier: 
+$$
+\begin{equation}
+Qi_\times.f_\times = I \times Qi.f.
+\end{equation}
+$$</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -715,10 +887,6 @@ $$</p>
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; 2024 <a href="https://ronnatech.com" target="_blank">Ronna Technologies</a>
-    </div>
   
   
     Made with
