@@ -87,6 +87,109 @@ $$
 
 Some constants, like $\pi$, need to be initialized as floating-point numbers, as this is the most intuitive representation. As constants are evaluated at compile-time (at least in C++), it would be very interesting to be able to convert a given constant from its floating-point representation to a fixed-point number.
 
+Let, $F, a floating-point number, its fixed-point representation is given by:
+$$
+\begin{equation}
+UQi.f = F \times 2^f.
+\end{equation}
+$$
+For instance, let's say we need to perform some computations that involve $\pi$ on a 8-bit micro-controller.
+The integer part of $\pi$ is $3$, so we only 2 bits to represent it, which leaves us 6 bits for the fractional part.
+If we use a $UQ2.6$ number, our approximation of $\pi$ will have a precision of $2^{-6} = 0.015625$.
+Assuming that is a good enough approximation, we get the following fixed-point internal representation of $\pi$: $\lfloor \pi \times 2^6 \rfloor = 201$.
+Since $201 = 3 \ times 2^6 + 9$, the fixed-point number that we get is in fact: $3 + \frac{9}{2^6} \approx 3.1406$.
+The same approximation with a $UQ4.12$ number gives an internal representation of $12,868$, which represents the number $3.1416$.
+Again, same approximation with a $UQ12.20$ leads to $3,294,198$, which represents the number $\approx 3.141592$.
 
+None of the above will ever be very close to $\pi$, but they can be very good approximations, and, as we'll see later, they will lead to very fast computations.
 
 ### Converting to floating-point
+
+Let's consider the last example of the previous section.
+How did we get the approximation of $3.141592$ from the internal representation $3,294,198$ of our $UQ12.20$ number?
+The answer is quite simple: instead of multiplying by $2^{20}$, we divided by $2^{20}$.
+This leads to:
+$$
+\begin{equation}
+F = UQi.f \times 2^{-f}.
+\end{equation}
+$$
+Let's verify this equation: $\frac{3,294,198}{2^20} = \frac{3,294,198}{1,048,576} \approx 3.141592$.
+
+### Converting from and to an integer
+
+The same formulas apply to integer, so equations $(6)$ and $(7)$ can be used to retrieve an integer $I$ directly by replacing $F$ by $I$.
+
+## Fixed-point arithmetic
+
+One of the main advantages of fixed-point numbers is their ability to perform fast arithmetic operations.
+The internal representation of a fixed-point number being an integer, operations are almost as fast as integer operations.
+
+### Addition and subtraction
+
+Things are quite simple for addition and subtraction of fixed-point numbers, as long as they share the same integer and fractional parts.
+Let's consider addition of two fixed-point numbers.
+We would like to add a $Qi_1.f_1$ number to a $Qi_2.f_2$ number.
+These numbers can be represented by $Qi_1.f_1 = N_1 \times 2^{f_1}$ and $Qi_2.f_2 = N_2 \times 2^{f_2}$.
+If $f_1 = f_2 = f$, we get immediately:
+$$
+\begin{equation}
+Qi_1.f + Qi_2.f = \left( N_1 + N_2 \right) \times 2^{f}.
+\end{equation}
+$$
+Of course things get a little bit more complicated if $f_1 \neq f_2$.
+
+Another simple case is the addition of a fixed-point number $Qi.f$ and an integer $I$:
+$$
+\begin{equation}
+I + Qi.f = N_I \times 2^{f} + Qi.f = \left( N_I + N \right) \times 2^f.
+\end{equation}
+$$
+
+The subtraction isn't more complex than the addition, as the sign is handled by the underlying integer operation.
+Overflow can happen, as it can happen with integer addition and subtraction.
+
+### Multiplication
+
+Now, say we want to multiply $Qi_1.f_1$ and $Qi_2.f_2$: 
+$$
+\begin{equation}
+Qi_1.f_1 \times Qi_2.f_2 = \left( N_1 \times 2^{f_1} \right) \times \left( N_2 \times 2^{f_2} \right) = N_1\,N_2 \times 2^{f_1 + f_2}.
+\end{equation}
+$$
+Let's call $Qi_\times.f_\times$ the result of the previous multiplication.
+It leads to:
+$$
+Qi_\times.f_\times = Qi_1.f_1 \times Qi_2.f_2,
+$$
+and so:
+$$
+N_\times 2^{f_\times} = N_1\,N_2 \times 2^{f_1 + f_2},
+$$
+thus, the internal representation of the multiplication's result is:
+$$
+\begin{equation}
+N_\times = \left( N_1\,N_2 \times 2^{f_1 + f_2} \right) \times 2^{-f_\times}.
+\end{equation}
+$$
+The value of $f_\times$ can be anything we want, but great care has to be taken, as $N_1\,N_2 \times 2^{f_1 + f_2}$ can lead to integer overflow.
+
+As an example, imagine we want to compute the perimeter of a circle.*
+The diameter of the circle is $d = 1.75$, so its perimeter is $d \times \pi$.
+We use $UQ10.22$ for both numbers, which requires a 32-bit integer internally, so $N_d = 1.75 \times 2^{22} = 7,340,032$ and $N_\pi = \pi \times 2^{22} \approx 13,176,795$.
+We get $N_{d \times \pi} = N_d N_{\pi} \times 2^{f_d + f_{\pi}} = 7,340,032 \times 13,176,795 = 96,718,089,617,408$.
+This intermediate value is a very big number that overflows 32-bit integers by a lot, so it needs to be stored in a temporary 64-bit integer.
+
+Now we want the result to be $UQ10.22$ as well, so $f_{d \times \pi} = 22$, which implies that the internal representation of the multiplication is $96,718,089,617,408 \times 2^{-22} = 23,059,389$.
+Let's convert that number back to a floating-point: $F_{d \times \pi} = 23,059,389 \times 2^{-22} \approx 5.49778688$.
+The actual result is $5.49778714$, so that's not too bad of an approximation.
+
+What we have done is multiply two 32-bit integers, store the result in a 64-bit integer and multiply by $2^{-22}$ to get the internal representation of the result.
+Multiplying by $2^{-22}$ is the same as shifting right by 22 bits ($\gg 22$), which is computationally inexpensive. 
+
+Multiplying by an integer $I$ is a little bit easier: 
+$$
+\begin{equation}
+Qi_\times.f_\times = I \times Qi.f.
+\end{equation}
+$$

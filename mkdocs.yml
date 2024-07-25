@@ -6,10 +6,6 @@ docs_dir: doc
 repo_name: RonnaTechnologies/flute
 repo_url: https://github.com/RonnaTechnologies/flute
 
-# Copyright
-copyright: 
-  Copyright &copy; 2024 <a href="https://ronnatech.com" target="_blank">Ronna Technologies</a>
-
 theme:
   name: material
   features:
@@ -43,6 +39,8 @@ theme:
         icon: material/toggle-switch-off
         name: Switch to system preference
 markdown_extensions:
+  - toc:
+      permalink: true
   - footnotes
   - pymdownx.arithmatex:
       generic: true
