@@ -135,14 +135,32 @@ namespace flute
             return fixed<I, F, sign_t>::from_raw((a << F) + b.data());
         }
 
-        friend constexpr auto operator+(fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
+        template <typename rhs_sign_t>
+            requires detail::types::Sign<rhs_sign_t>
+        friend constexpr auto operator+(fixed<I, F, sign_t> a, fixed<I, F, rhs_sign_t> b) noexcept
         {
-            return fixed<I, F, sign_t>::from_raw(a.raw + b.data());
+            if constexpr (std::is_same_v<rhs_sign_t, sign_t>)
+            {
+                return fixed<I, F, sign_t>::from_raw(a.raw + b.data());
+            }
+            else
+            {
+                return fixed<I, F, unsigned_t>::from_raw(a.raw + b.data());
+            }
         }
 
-        friend constexpr auto operator-(fixed<I, F, sign_t> a, fixed<I, F, sign_t> b) noexcept
+        template <typename rhs_sign_t>
+            requires detail::types::Sign<rhs_sign_t>
+        friend constexpr auto operator-(fixed<I, F, sign_t> a, fixed<I, F, rhs_sign_t> b) noexcept
         {
-            return fixed<I, F, sign_t>::from_raw(a.raw - b.data());
+            if constexpr (std::is_same_v<rhs_sign_t, sign_t>)
+            {
+                return fixed<I, F, sign_t>::from_raw(a.raw - b.data());
+            }
+            else
+            {
+                return fixed<I, F, signed_t>::from_raw(a.raw - b.data());
+            }
         }
 
         template <std::size_t Iout = I, std::size_t Fout = F, std::size_t Ir, std::size_t Fr, typename rsign_t>
