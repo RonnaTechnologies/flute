@@ -102,28 +102,28 @@ namespace flute
 
         template <typename Dest_t>
             requires(std::is_floating_point_v<Dest_t> && sizeof(Dest_t) >= sizeof(T))
-        constexpr Dest_t as() const noexcept
+        [[nodiscard]] constexpr Dest_t as() const noexcept
         {
             return (static_cast<Dest_t>(raw / static_cast<Dest_t>(T{ 1 } << F)));
         }
 
         template <typename Dest_t>
             requires std::is_integral_v<Dest_t>
-        constexpr Dest_t as() const noexcept
+        [[nodiscard]] constexpr Dest_t as() const noexcept
         {
             return raw >> F;
         }
 
         template <typename Raw_t>
             requires std::is_convertible_v<Raw_t, T>
-        static constexpr auto from_raw(Raw_t&& r)
+        [[nodiscard]] static constexpr auto from_raw(Raw_t&& r)
         {
             fixed<I, F, sign_t> f;
             f.raw = r;
             return f;
         }
 
-        constexpr auto data() const noexcept
+        [[nodiscard]] constexpr auto data() const noexcept
         {
             return raw;
         }
@@ -147,7 +147,7 @@ namespace flute
 
         template <std::size_t Iout = I, std::size_t Fout = F, std::size_t Ir, std::size_t Fr, typename rsign_t>
             requires std::same_as<sign_t, rsign_t>
-        constexpr auto mul(fixed<Ir, Fr, rsign_t> rhs) const noexcept
+        [[nodiscard]] constexpr auto mul(fixed<Ir, Fr, rsign_t> rhs) const noexcept
         {
             using overflow_t = detail::types::from_bits<F + Fr + I + Ir, sign_t>::type;
             return fixed<Iout, Fout, sign_t>::from_raw(static_cast<overflow_t>(raw * rhs.data()) >> Fout);
@@ -209,7 +209,7 @@ namespace flute
 
         template <typename Callable>
             requires requires(Callable&& f) { f(typename array_type::size_type{ 0 }); }
-        static constexpr lut<T, N> generate(Callable&& f)
+        [[nodiscard]] static constexpr lut<T, N> generate(Callable&& f)
         {
             return [](Callable&& f)
             {
@@ -223,18 +223,18 @@ namespace flute
             }(f);
         }
 
-        constexpr T at(std::size_t i) const noexcept
+        [[nodiscard]] constexpr T at(std::size_t i) const noexcept
         {
             return data[i];
         }
 
-        constexpr T& at(std::size_t i) noexcept
+        [[nodiscard]] constexpr T& at(std::size_t i) noexcept
         {
             return data[i];
         }
 
         template <std::size_t I, std::size_t F, typename sign_t>
-        constexpr auto at(const fixed<I, F, sign_t>& x) const noexcept
+        [[nodiscard]] constexpr auto at(const fixed<I, F, sign_t>& x) const noexcept
         {
             using fixed_type = fixed<I, F, sign_t>;
             using size_type = array_type::size_type;
@@ -244,7 +244,7 @@ namespace flute
             return ya + (yb - ya) * (x - fixed_type{ xa });
         }
 
-        static constexpr lut<T, N> make(const std::array<T, N>& input)
+        [[nodiscard]] static constexpr lut<T, N> make(const std::array<T, N>& input)
         {
             return lut<T, N>{ input };
         }
@@ -276,17 +276,22 @@ namespace flute
 
         constexpr flut() = delete;
 
-        constexpr T at(std::size_t i) const noexcept
+        [[nodiscard]] constexpr T at(std::size_t i) const noexcept
         {
             return data[i];
         }
 
-        constexpr T& at(std::size_t i) noexcept
+        [[nodiscard]] constexpr T& at(std::size_t i) noexcept
         {
             return data[i];
         }
 
-        constexpr auto at(const fixed_type& x) const noexcept
+        [[nodiscard]] constexpr T& operator[](array_type::size_type i)
+        {
+            return data[i];
+        }
+
+        [[nodiscard]] constexpr auto at(const fixed_type& x) const noexcept
         {
             using size_type = array_type::size_type;
             const auto xa = x.template as<size_type>();
@@ -297,7 +302,7 @@ namespace flute
 
         template <typename Callable>
             requires requires(Callable&& f) { f(typename array_type::size_type{ 0 }); }
-        static constexpr flut<fixed_type, N> generate(Callable&& f)
+        [[nodiscard]] static constexpr flut<fixed_type, N> generate(Callable&& f)
         {
             return [](Callable&& f)
             {
@@ -312,7 +317,7 @@ namespace flute
         }
 
         template <typename Input_t>
-        static constexpr flut<fixed_type, N> make(const std::array<Input_t, N>& input)
+        [[nodiscard]] static constexpr flut<fixed_type, N> make(const std::array<Input_t, N>& input)
         {
             return [](const auto& input)
             {
@@ -326,7 +331,7 @@ namespace flute
             }(input);
         }
 
-        static constexpr flut<fixed_type, N> make_from_raw(const std::array<T, N>& input)
+        [[nodiscard]] static constexpr flut<fixed_type, N> make_from_raw(const std::array<T, N>& input)
         {
             return flut<fixed_type, N>{ input };
         }
