@@ -86,7 +86,7 @@
 
   
 
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="flute documentation" class="md-header__button md-logo" aria-label="flute documentation" data-md-component="logo">
       
@@ -210,13 +210,75 @@
     
   </nav>
   
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  About flute
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Fixed-point numbers
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../flute_tutorial/" class="md-tabs__link">
+        
+  
+    
+  
+  Flute tutorial
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
-        
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -230,8 +292,12 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="flute documentation" class="md-nav__button md-logo" aria-label="flute documentation" data-md-component="logo">
       
@@ -452,6 +518,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#reciprocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reciprocal
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -476,7 +551,7 @@
         
   
   <span class="md-ellipsis">
-    Flute Tutorial
+    Flute tutorial
   </span>
   
 
@@ -491,161 +566,6 @@
                 </div>
               </div>
             
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-are-fixed-point-numbers" class="md-nav__link">
-    <span class="md-ellipsis">
-      What are fixed-point numbers?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-use-fixed-point-numbers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why use fixed-point numbers?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#q-notation" class="md-nav__link">
-    <span class="md-ellipsis">
-      \(Q\) notation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#range-of-fixed-point-numbers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Range of fixed-point numbers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#precision-of-fixed-point-numbers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Precision of fixed-point numbers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#internal-representation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Internal representation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#from-and-to-fixed-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      From and to fixed-point
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="From and to fixed-point">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#converting-from-floating-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      Converting from floating-point
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#converting-to-floating-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      Converting to floating-point
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#converting-from-and-to-an-integer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Converting from and to an integer
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fixed-point-arithmetic" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fixed-point arithmetic
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Fixed-point arithmetic">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#addition-and-subtraction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Addition and subtraction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#multiplication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Multiplication
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
             
           
           
@@ -806,12 +726,44 @@ Let's convert that number back to a floating-point: <span class="arithmatex">\(F
 The actual result is <span class="arithmatex">\(5.49778714\)</span>, so that's not too bad of an approximation.</p>
 <p>What we have done is multiply two 32-bit integers, store the result in a 64-bit integer and multiply by <span class="arithmatex">\(2^{-22}\)</span> to get the internal representation of the result.
 Multiplying by <span class="arithmatex">\(2^{-22}\)</span> is the same as shifting right by 22 bits (<span class="arithmatex">\(\gg 22\)</span>), which is computationally inexpensive. </p>
-<p>Multiplying by an integer <span class="arithmatex">\(I\)</span> is a little bit easier: 
+<p>Multiplying by an integer <span class="arithmatex">\(I\)</span> is a little bit easier:
 $$
 \begin{equation}
 Qi_\times.f_\times = I \times Qi.f.
 \end{equation}
 $$</p>
+<h3 id="reciprocal">Reciprocal<a class="headerlink" href="#reciprocal" title="Permanent link">&para;</a></h3>
+<p>So far, everything has been relatively straightforward, however, division is a bit more complex.
+Dividing numbers is not easy, and the complexity of division leads to long computations.
+In practice, division can be seen as the multiplication of one number (numerator), by the inverse of another (denominator).
+A <span class="arithmatex">\(UQi.f\)</span> number ranges from <span class="arithmatex">\(0\)</span> to <span class="arithmatex">\(2^i\)</span>, so the precision of <span class="arithmatex">\(\frac{1}{UQi.f}\)</span> is <span class="arithmatex">\(2^{-i}\)</span>.
+In other terms:
+$$
+\begin{equation}
+\frac{1}{UQi.f} = UQf.x,
+\end{equation}
+$$
+where <span class="arithmatex">\(x\)</span> is to be determined.
+In practice, <span class="arithmatex">\(x\)</span> can be anything.
+It can be a value that is specified by some requirements, or some value that is restricted by the internal storage, etc.
+If a default value had to be chosen, <span class="arithmatex">\(x = i\)</span> would be a decent choice, as it wouldn't change the internal representation:
+$$
+\begin{equation}
+\frac{1}{UQi.f} = UQf.i.
+\end{equation}
+$$</p>
+<p>Let's see what happens if we compute the inverse of <span class="arithmatex">\(\sqrt{2} \approx 1.414213562\)</span>.
+For this example, we choose to use <span class="arithmatex">\(UQ16.16\)</span> numbers, which lead to the internal representation of <span class="arithmatex">\(92,682\)</span> for <span class="arithmatex">\(\sqrt{2}\)</span>.
+We need to divide something by a number whose value lies between <span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(2^{16}\)</span>.
+The result of this division also needs lie between <span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(2^{16}\)</span>, so the numerator of our division has to be <span class="arithmatex">\(2^{32}\)</span>.
+From that, we get the internal representation of <span class="arithmatex">\(\frac{2^{32}}{92,682} \approx 46,340\)</span> (rounding down).
+This number is also expressed in a <span class="arithmatex">\(UQ16.16\)</span> format, its corresponding floating-point value is: <span class="arithmatex">\(46,340 / 2^{16} \approx 0.70709\)</span>. That is about the value we expected, as <span class="arithmatex">\(\frac{1}{\sqrt{2}} \approx 0.707107\)</span>.
+Note that rounding the internal representation to <span class="arithmatex">\(46,341\)</span> would have given use a better result.</p>
+<p>This example is somewhat misleading, as we know that <span class="arithmatex">\(\frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}\)</span>.
+Thus, the problem is a lot simpler than it looks, we just need to divide the internal representation of <span class="arithmatex">\(\sqrt{2}\)</span> by <span class="arithmatex">\(2\)</span>, which leads to the following representation for <span class="arithmatex">\(\frac{1}{\sqrt{2}}\)</span>: <span class="arithmatex">\(92,682 \ll 1 = 46,341\)</span>.
+This illustrates that we don't actually need division in this particular case.
+The takeaway is: try to avoid division at all cost, as there might be better alternatives in some cases.</p>
+<p>Of course, <span class="arithmatex">\(\frac{2^{32}}{92,682}\)</span> is an integer division, some micro-controllers do have instructions for that (mostly 32-bit micro-controllers), but these instructions usually take more than a single clock cycle, so they are more expensive than they look. On the other hand, this is to be avoided at all cost if the micro-controller doesn't have an instruction for division.</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -837,8 +789,16 @@ $$</p>
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
         
       </main>
       
@@ -866,13 +826,13 @@ $$</p>
         
         
           
-          <a href="../flute_tutorial/" class="md-footer__link md-footer__link--next" aria-label="Next: Flute Tutorial">
+          <a href="../flute_tutorial/" class="md-footer__link md-footer__link--next" aria-label="Next: Flute tutorial">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Flute Tutorial
+                Flute tutorial
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -906,7 +866,7 @@ $$</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.footer", "navigation.indexes", "navigation.tracking", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.sections", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotate", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
