@@ -9,13 +9,17 @@ repo_url: https://github.com/RonnaTechnologies/flute
 theme:
   name: material
   features:
-    - navigation.sections
-    - navigation.footer
-    - navigation.indexes
     - navigation.tracking
-    - toc.follow
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes 
+    - navigation.top
+    - navigation.footer
+    - navigation.sections
+    - toc.integrate
     - search.suggest
     - search.highlight
+    - content.tabs.link
     - content.code.annotate 
     - content.code.copy
     - content.tooltips
@@ -55,7 +59,3 @@ extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
-nav:
-  - About flute: index.md
-  - Fixed-point numbers: fixed_point_numbers.md
-  - Flute Tutorial: flute_tutorial.md
