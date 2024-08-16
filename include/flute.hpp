@@ -8,6 +8,14 @@
 
 namespace flute
 {
+    struct semver
+    {
+        int major;
+        int minor;
+        int patch;
+    };
+
+    static constexpr auto version = semver{ .major = 0, .minor = 1, .patch = 0 };
 
     struct not_found
     {
@@ -25,6 +33,9 @@ namespace flute
         // Concepts
         template <typename T>
         concept Sign = std::is_same_v<T, signed_t> || std::is_same_v<T, unsigned_t>;
+
+        template <typename T, typename... U>
+        concept AnyOf = (std::same_as<T, U> || ...);
 
         // Helpers
         template <typename...>
@@ -163,17 +174,21 @@ namespace flute
             }
         }
 
-        template <std::size_t Iout = I, std::size_t Fout = F, std::size_t Ir, std::size_t Fr, typename rsign_t>
-            requires std::same_as<sign_t, rsign_t>
-        [[nodiscard]] constexpr auto mul(fixed<Ir, Fr, rsign_t> rhs) const noexcept
+        template <std::size_t Iout = I, std::size_t Fout = F, std::size_t Ir, std::size_t Fr, typename rhs_sign_t>
+            requires detail::types::Sign<sign_t> && detail::types::Sign<rhs_sign_t>
+        [[nodiscard]] constexpr auto mul(fixed<Ir, Fr, rhs_sign_t> rhs) const noexcept
         {
-            using overflow_t = detail::types::from_bits<F + Fr + I + Ir, sign_t>::type;
-            return fixed<Iout, Fout, sign_t>::from_raw(static_cast<overflow_t>(raw * rhs.data()) >> Fout);
+            using result_sign_t = std::conditional_t<detail::types::AnyOf<signed_t, sign_t, rhs_sign_t>, signed_t, unsigned_t>;
+            using overflow_sign_t =
+            std::conditional_t<detail::types::AnyOf<unsigned_t, sign_t, rhs_sign_t>, unsigned_t, result_sign_t>;
+
+            using overflow_t = detail::types::from_bits<F + Fr + I + Ir, overflow_sign_t>::type;
+            return fixed<Iout, Fout, result_sign_t>::from_raw(static_cast<overflow_t>(raw * rhs.data()) >> Fout);
         }
 
-        template <std::size_t Ir, std::size_t Fr, typename rsign_t>
-            requires std::same_as<sign_t, rsign_t>
-        friend constexpr auto operator*(fixed<I, F, sign_t> a, fixed<Ir, Fr, rsign_t> b)
+        template <std::size_t Ir, std::size_t Fr, typename rhs_sign_t>
+            requires detail::types::Sign<sign_t> && detail::types::Sign<rhs_sign_t>
+        friend constexpr auto operator*(fixed<I, F, sign_t> a, fixed<Ir, Fr, rhs_sign_t> b)
         {
             return a.mul(b);
         }
