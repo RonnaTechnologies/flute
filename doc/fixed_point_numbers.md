@@ -114,7 +114,7 @@ $$
 F = UQi.f \times 2^{-f}.
 \end{equation}
 $$
-Let's verify this equation: $\frac{3,294,198}{2^20} = \frac{3,294,198}{1,048,576} \approx 3.141592$.
+Let's verify this equation: $\frac{3,294,198}{2^{20}} = \frac{3,294,198}{1,048,576} \approx 3.141592$.
 
 ### Converting from and to an integer
 
@@ -187,9 +187,48 @@ The actual result is $5.49778714$, so that's not too bad of an approximation.
 What we have done is multiply two 32-bit integers, store the result in a 64-bit integer and multiply by $2^{-22}$ to get the internal representation of the result.
 Multiplying by $2^{-22}$ is the same as shifting right by 22 bits ($\gg 22$), which is computationally inexpensive. 
 
-Multiplying by an integer $I$ is a little bit easier: 
+Multiplying by an integer $I$ is a little bit easier:
 $$
 \begin{equation}
 Qi_\times.f_\times = I \times Qi.f.
 \end{equation}
 $$
+
+### Reciprocal
+
+So far, everything has been relatively straightforward, however, division is a bit more complex.
+Dividing numbers is not easy, and the complexity of division leads to long computations.
+In practice, division can be seen as the multiplication of one number (numerator), by the inverse of another (denominator).
+A $UQi.f$ number ranges from $0$ to $2^i$, so the precision of $\frac{1}{UQi.f}$ is $2^{-i}$.
+In other terms:
+$$
+\begin{equation}
+\frac{1}{UQi.f} = UQf.x,
+\end{equation}
+$$
+where $x$ is to be determined.
+In practice, $x$ can be anything.
+It can be a value that is specified by some requirements, or some value that is restricted by the internal storage, etc.
+If a default value had to be chosen, $x = i$ would be a decent choice, as it wouldn't change the internal representation:
+$$
+\begin{equation}
+\frac{1}{UQi.f} = UQf.i.
+\end{equation}
+$$
+
+Let's see what happens if we compute the inverse of $\sqrt{2} \approx 1.414213562$.
+For this example, we choose to use $UQ16.16$ numbers, which lead to the internal representation of $92,682$ for $\sqrt{2}$.
+We need to divide something by a number whose value lies between $0$ and $2^{16}$.
+The result of this division also needs lie between $0$ and $2^{16}$, so the numerator of our division has to be $2^{32}$.
+From that, we get the internal representation of $\frac{2^{32}}{92,682} \approx 46,340$ (rounding down).
+This number is also expressed in a $UQ16.16$ format, its corresponding floating-point value is: $46,340 / 2^{16} \approx 0.70709$. That is about the value we expected, as $\frac{1}{\sqrt{2}} \approx 0.707107$.
+Note that rounding the internal representation to $46,341$ would have given use a better result.
+
+This example is somewhat misleading, as we know that $\frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}$.
+Thus, the problem is a lot simpler than it looks, we just need to divide the internal representation of $\sqrt{2}$ by $2$, which leads to the following representation for $\frac{1}{\sqrt{2}}$: $92,682 \ll 1 = 46,341$.
+This illustrates that we don't actually need division in this particular case.
+The takeaway is: try to avoid division at all cost, as there might be better alternatives in some cases.
+
+Of course, $\frac{2^{32}}{92,682}$ is an integer division, some micro-controllers do have instructions for that (mostly 32-bit micro-controllers), but these instructions usually take more than a single clock cycle, so they are more expensive than they look. On the other hand, this is to be avoided at all cost if the micro-controller doesn't have an instruction for division.
+
+
