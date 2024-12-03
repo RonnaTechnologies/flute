@@ -87,7 +87,7 @@ $$
 
 Some constants, like $\pi$, need to be initialized as floating-point numbers, as this is the most intuitive representation. As constants are evaluated at compile-time (at least in C++), it would be very interesting to be able to convert a given constant from its floating-point representation to a fixed-point number.
 
-Let, $F, a floating-point number, its fixed-point representation is given by:
+Let, $F$, a floating-point number, its fixed-point representation is given by:
 $$
 \begin{equation}
 UQi.f = F \times 2^f.
